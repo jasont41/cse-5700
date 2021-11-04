@@ -1,20 +1,51 @@
-// ConsoleApplication1.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
-
 #include <iostream>
+#include <string>
+#include <sstream>
+#include <cstring>
+#include <array>
 
-int main()
-{
-    std::cout << "Hello World!\n";
+#define alphabetsize 2
+
+bool DFA(std::string str, const int tab[][alphabetsize], const bool arr[]) {
+	for (int i = 0; i < str.size(); i++) 
+	{
+		std::cout << str[i] << std::endl; 
+	}
+	std::cout << std::endl; 
+
+	int index; 
+	int state = 0; 
+
+	for (int i = 0; i < str.size(); ++i) 
+	{
+		index = str[i] - 'a'; 
+		std::cout << "index : " << index << " "; 
+		state = tab[state][index]; 
+		std::cout << "State: " << state << std::endl; 
+	}
+	return arr[state]; 
 }
 
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
+int main() {
+	const int table[4][2] = { {1,0}, {1,2}, {1,3}, {1,0} };
+	for (int i = 0; i < 4; ++i)
+	{
+		for (int j = 0; j < 2; ++j) {
+			std::cout << table[i][j] << " "; 
+		}
+	}
+	std::string input; 
+	std::cin >> input; 
 
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
+
+	const bool final[4] = { 0,0,0,1 }; 
+	std::cout << "Enter string: " << std::endl; 
+
+	if (DFA(input, table, final))
+	{
+		std::cout << "valid"; 
+	}
+	else {
+		std::cout << "not valid";
+	}
+}
