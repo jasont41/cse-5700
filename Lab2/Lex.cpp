@@ -1,51 +1,51 @@
-#include <fstream> 
-#include <iostream> 
-#include <vector> 
-#include <string> 
+#include <fstream>
+#include <iostream>
+#include <vector>
+#include <string>
 #include <algorithm>
 #include <iterator>
-#include <regex> 
-using namespace std; 
+#include <regex>
+using namespace std;
 
-void print_vector(vector<string>); 
-int check_line(vector<string>&, vector<int>&, string, int); 
-string get_identifier(string); 
-bool check_valid_name (string); 
-string vector_cleaning(string); 
+void print_vector(vector<string>);
+int check_line(vector<string> &, vector<int> &, string, int);
+string get_identifier(string);
+bool check_valid_name(string);
+string vector_cleaning(string);
+int vector_handling(vector<string> &, vector<int> &, string, int);
 
-//global variables 
-regex regex_str("^[_a-z]\\w*$"); 
+//global variables
+regex regex_str("^[_a-z]\\w*$");
 
 int main()
 {
-    string line; 
-    vector<string> identifier; 
-    vector<int> location; 
-    ifstream fin("/Users/jasoneastman/Documents/workspace/cse-5700/Lab2/input.txt"); 
+    string line;
+    vector<string> identifier;
+    vector<int> location;
+    ifstream fin("/Users/jasoneastman/Documents/workspace/cse-5700/Lab2/input.txt");
 
-    vector<string> lines; 
-    if(!fin.is_open())
+    vector<string> lines;
+    if (!fin.is_open())
     {
-        cout << "File is no good. Exiting" ; 
-        return 0; 
+        cout << "File is no good. Exiting";
+        return 0;
     }
-    while(getline(fin,line))
+    while (getline(fin, line))
     {
-        lines.push_back(line); 
+        lines.push_back(line);
     }
-    for(int i = 0; i < lines.size(); i++){
+    for (int i = 0; i < lines.size(); i++)
+    {
         //  Return 1 == good, return 8 == ignored main
-        int return_code = check_line(identifier, location, lines[i], i); 
-        //  Uncomment for debugging; 
-        //  cout << return_code << endl; 
+        int return_code = check_line(identifier, location, lines[i], i);
+        //  Uncomment for debugging;
+        //  cout << return_code << endl;
     }
-    fin.close(); 
-    print_vector(identifier); 
+    fin.close();
+    print_vector(identifier);
 }
 
-
-
-int check_line(vector<string>& ident, vector<int>& loc, string line, int line_num)
+int check_line(vector<string> &ident, vector<int> &loc, string line, int line_num)
 {
     /*
         Note: string.find() returns the index of the beginning of the substring 
@@ -58,150 +58,148 @@ int check_line(vector<string>& ident, vector<int>& loc, string line, int line_nu
             vector<data type> var_name; (nothing between name and semicolon) last case 
     */
 
-    line_num++;  //zero based making it one based 
-    bool found_identifier = false; 
-    //function block 
-    string function_return_types [9] = {"void", "float", "int", "char", "vector", "double", "long", "short", "bool"};
-    for(int i = 0; i < 8; i++)
+    line_num++; //zero based making it one based
+    bool found_identifier = false;
+    //function block
+    string function_return_types[9] = {"void", "float", "int", "char", "vector", "double", "long", "short", "bool"};
+    for (int i = 0; i < 8; i++)
     {
-        if(line.find(function_return_types[i]) != string::npos)
+        if (line.find(function_return_types[i]) != string::npos)
         {
-            if(function_return_types[i] == "vector") // vector case 
+            if (function_return_types[i] == "vector") // vector case
             {
-                //case 1 
-                if(line.find("(") != string::npos)
-                {
-                    int arrow_loc = line.find(">"); 
-                    int parenthesis_loc = line.find("("); 
-                    string substr = line.substr(arrow_loc, parenthesis_loc); 
-                    substr = vector_cleaning(substr); 
-
-                    if(regex_match(substr, regex_str))
-                    {
-                        ident.push_back(substr);
-                        loc.push_back(line_num); 
-                        return 1; 
-                    }
-                    else
-                    {   //  bad identifier name 
-                        return 8; 
-                    }
-                }
-                //case 2
-                if(line.find("{") != string::npos)
-                {
-                    int arrow_loc = line.find(">"); 
-                    int bracket_loc = line.find("{"); 
-                    string substr = line.substr(arrow_loc, bracket_loc);
-                    size_t first = substr.find("{");
-                    size_t last = substr.find("}", first);
-                    substr.erase(first,last-first+1);
-                    cout << "   "  << arrow_loc << "  " << bracket_loc << endl << substr << endl;
-
-                    substr = vector_cleaning(substr); 
-                    
-                    ident.push_back(substr);
-                    loc.push_back(line_num); 
-                    if(regex_match(substr, regex_str))
-                    {
-                        ident.push_back(substr);
-                        loc.push_back(line_num); 
-                        return 1; 
-                    }
-                    else
-                    {   //  bad identifier name 
-                        return 8; 
-                    }
-                }
-                //case 3 
-                else
-                {
-                    int arrow_loc = line.find(">"); 
-                    int semi_colon_loc = line.find(";"); 
-                    string substr = line.substr(arrow_loc, semi_colon_loc); 
-                    std::string::iterator end_pos = std::remove(substr.begin(), substr.end(), ' ');
-                    substr.erase(end_pos, substr.end());
-                    ident.push_back(substr);
-                    loc.push_back(line_num); 
-                    if(regex_match(substr, regex_str))
-                    {
-                        ident.push_back(substr);
-                        loc.push_back(line_num); 
-                        return 1; 
-                    }
-                    else
-                    {   //  bad identifier name 
-                        return 8; 
-                    } 
-                }  
+                return vector_handling(ident, loc, line, line_num); 
             }
         }
     }
 
-    //  Need to implement vector case 
-    //variable block 
-    string data_types[9] =  {"char", "short", "long", "int", "float", "double", "bool", "short", "vector"}; 
-    for(int i = 0; i < 8; i++)
+    //variable block
+    string data_types[9] = {"char", "short", "long", "int", "float", "double", "bool", "short", "vector"};
+    for (int i = 0; i < 8; i++)
     {
-        // finds identifier, then isolates declaration  
-        if(line.find(data_types[i]) != string::npos){  
-            found_identifier = true; 
-            int index = line.find(data_types[i]); 
-            string identif = get_identifier(line.substr(data_types[i].length()+index, line.length())); 
+        // finds identifier, then isolates declaration
+        if (line.find(data_types[i]) != string::npos)
+        {
+            found_identifier = true;
+            int index = line.find(data_types[i]);
+            string identif = get_identifier(line.substr(data_types[i].length() + index, line.length()));
 
-            //  Ignore main if there as it wasn't user created and thus isn't a identifier 
-            if(identif.find("main") != string::npos)
+            //  Ignore main if there as it wasn't user created and thus isn't a identifier
+            if (identif.find("main") != string::npos)
             {
-                return 8;  
+                return 8;
             }
             else if (identif.find("main") == string::npos)
-            {   //main is NOT in this string 
-                ident.push_back(get_identifier(line.substr(data_types[i].length()+index, line.length())));
-                loc.push_back(line_num); 
-                return 1; 
+            { //main is NOT in this string
+                ident.push_back(get_identifier(line.substr(data_types[i].length() + index, line.length())));
+                loc.push_back(line_num);
+                return 1;
             }
-            //  If you got here, it means the identifer is not a variable. 
+            //  If you got here, it means the identifer is not a variable.
         }
     }
 
-
-
-
-
-    return 0; 
+    return 0;
 }
 
+int vector_handling(vector<string> &ident, vector<int> &loc, string line, int line_num)
+{
+    //case 1
+    if (line.find("(") != string::npos)
+    {
+        int arrow_loc = line.find(">");
+        int parenthesis_loc = line.find("(");
+        string substr = line.substr(arrow_loc, parenthesis_loc);
+        substr = vector_cleaning(substr);
 
+        if (regex_match(substr, regex_str))
+        {
+            ident.push_back(substr);
+            loc.push_back(line_num);
+            return 1;
+        }
+        else
+        { //  bad identifier name
+            return 8;
+        }
+    }
+    //case 2
+    if (line.find("{") != string::npos)
+    {
+        int arrow_loc = line.find(">");
+        int bracket_loc = line.find("{");
+        string substr = line.substr(arrow_loc, bracket_loc);
+        size_t first = substr.find("{");
+        size_t last = substr.find("}", first);
+        substr.erase(first, last - first + 1);
+
+        substr = vector_cleaning(substr);
+
+        if (regex_match(substr, regex_str))
+        {
+            ident.push_back(substr);
+            loc.push_back(line_num);
+            return 1;
+        }
+        else
+        { //  bad identifier name
+            return 8;
+        }
+    }
+    //case 3
+    else
+    {
+        int arrow_loc = line.find(">");
+        int semi_colon_loc = line.find(";");
+        string substr = line.substr(arrow_loc, semi_colon_loc);
+        std::string::iterator end_pos = std::remove(substr.begin(), substr.end(), ' ');
+        substr = vector_cleaning(substr);
+        substr.erase(end_pos, substr.end());
+        ident.push_back(substr);
+        loc.push_back(line_num);
+        if (regex_match(substr, regex_str))
+        {
+            ident.push_back(substr);
+            loc.push_back(line_num);
+            return 1;
+        }
+        else
+        { //  bad identifier name
+            return 8;
+        }
+    }
+    return 0; 
+}
 string vector_cleaning(string line)
 {
     std::string::iterator end_pos = std::remove(line.begin(), line.end(), ' ');
     line.erase(end_pos, line.end());
-    if(line.find("<") != string::npos)
+    if (line.find('<') != string::npos)
     {
-        std::string::iterator end_pos = std::remove(line.begin(), line.end(), "<");
+        std::string::iterator end_pos = std::remove(line.begin(), line.end(), '<');
         line.erase(end_pos, line.end());
     }
-    else if (line.find(">") != string::npos)
+    if (line.find('>') != string::npos)
     {
-        std::string::iterator end_pos = std::remove(line.begin(), line.end(), ">");
+        std::string::iterator end_pos = std::remove(line.begin(), line.end(), '>');
         line.erase(end_pos, line.end());
     }
-    else if (line.find(";") != string::npos)
+    if (line.find(';') != string::npos)
     {
-        std::string::iterator end_pos = std::remove(line.begin(), line.end(), ";");
+        std::string::iterator end_pos = std::remove(line.begin(), line.end(), ';');
         line.erase(end_pos, line.end());
     }
-    return line; 
+    return line;
 }
 
 string get_identifier(string input)
 {
-    return (input.substr(0,input.find("="))); 
+    return (input.substr(0, input.find("=")));
 }
 void print_vector(vector<string> vect)
 {
-    for(int i = 0; i < vect.size(); i++)
+    for (int i = 0; i < vect.size(); i++)
     {
-        cout << vect[i] << endl; 
+        cout << vect[i] << endl;
     }
 }
