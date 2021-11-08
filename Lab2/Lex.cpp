@@ -60,6 +60,38 @@ int check_line(vector<string> &ident, vector<int> &loc, string line, int line_nu
 
     line_num++; //zero based making it one based
     bool found_identifier = false;
+    //  Classes 
+
+    if(line.find("class") != string::npos)
+    {
+        if(line.find("{") == string::npos)
+        {
+            string substr = line.substr(line.find("class")+5, substr.length()); 
+            size_t first = substr.find("{");
+            size_t last = substr.find("}", first);
+            substr.erase(first, last - first + 1);
+            ident.push_back(substr); 
+            loc.push_back(line_num); 
+            return 1; 
+        }
+        else
+        {
+            string substr = line.substr(line.find("class"+5),line.find(";")); 
+            ident.push_back(substr); 
+            loc.push_back(line_num); 
+            return 1; 
+        }
+    }
+    //  struct 
+    if(line.find("struct") != string::npos)
+    {
+        int left_open_bracket_loc = line.find("{"); 
+        string substr = line.substr(line.find("struct")+6, line.length()-1); 
+        ident.push_back(substr); 
+        loc.push_back(line_num); 
+        return 1; 
+    }
+
     //function block
     string function_return_types[9] = {"void", "float", "int", "char", "vector", "double", "long", "short", "bool"};
     for (int i = 0; i < 8; i++)
