@@ -1,0 +1,5 @@
+﻿  lab4 take 99.cpp
+C:\Users\Jason\Documents\GitHub\cse-5700\lab4 take 99\lab4 take 99\lab4 take 99.cpp(36,9): warning C4101: 'choice': unreferenced local variable
+C:\Users\Jason\Documents\GitHub\cse-5700\lab4 take 99\lab4 take 99\lab4 take 99.cpp(37,10): warning C4101: 'ch': unreferenced local variable
+C:\Users\Jason\Documents\GitHub\cse-5700\lab4 take 99\lab4 take 99\lab4 take 99.cpp(246,6): warning C4101: 'k': unreferenced local variable
+  lab4 take 99.vcxproj -> C:\Users\Jason\Documents\GitHub\cse-5700\lab4 take 99\Debug\lab4 take 99.exe
