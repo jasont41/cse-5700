@@ -1,0 +1,5 @@
+﻿  lab3_new.cpp
+C:\Users\Jason\Documents\GitHub\cse-5700\lab3\lab3_new\lab3_new\lab3_new.cpp(32,9): warning C4101: 'choice': unreferenced local variable
+C:\Users\Jason\Documents\GitHub\cse-5700\lab3\lab3_new\lab3_new\lab3_new.cpp(33,10): warning C4101: 'ch': unreferenced local variable
+C:\Users\Jason\Documents\GitHub\cse-5700\lab3\lab3_new\lab3_new\lab3_new.cpp(163,9): warning C4101: 'k': unreferenced local variable
+  lab3_new.vcxproj -> C:\Users\Jason\Documents\GitHub\cse-5700\lab3\lab3_new\Debug\lab3_new.exe
