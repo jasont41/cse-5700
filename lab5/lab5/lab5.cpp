@@ -39,7 +39,7 @@ public:
     }
     extendedProduction* operator[](const int index){return productions[index];    }
 };
-string file = "g419";
+string file = "grammer.txt";
 vector<char> terminal;
 vector<char> nonTerminal;
 map<char, string> production;
@@ -92,20 +92,20 @@ int main()
             temp.push_back(value); 
             singleRPs[0].push(new extendedProduction('\'', temp));
             nonTerminal.push_back(value); 
-            continue; 
         }
         else if (!(find(nonTerminal.begin(), nonTerminal.end(), value) != nonTerminal.end()))
         {
             nonTerminal.push_back(value);
         }
-        int pos = line.find(delim); 
-        
-        rhs = line.substr(pos + 2, line.length());
+        auto pos = line.find(delim); 
+        rhs = line.substr(pos + 2,std::string::npos);
         
         
         if (production[value] == "")
         {
-            production[value] = line.substr(3, line.length()); 
+            if (line.length() > 3) {
+                production[value] = line.substr(3, line.length());
+            }
             AugGrammar[value].push_back(rhs); 
             cout << value << rhs << endl; 
             if (!isTerminal(rhs[0]))
@@ -128,7 +128,7 @@ int main()
     cout << "Closures and gotos " << endl; 
     while (++itemid < int(singleRPs.size()))
     {
-
+        getSingleRPs(singleRPs, AugGrammar, itemid, globalGoto);
     }
 
 }

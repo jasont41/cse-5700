@@ -1,6 +1,6 @@
 ﻿  lab5.cpp
-C:\Users\Jason\Documents\GitHub\cse-5700\lab5\lab5\lab5.cpp(185,74): warning C4267: '=': conversion from 'size_t' to 'char', possible loss of data
-C:\Users\Jason\Documents\GitHub\cse-5700\lab5\lab5\lab5.cpp(161,25): warning C4101: 'prod': unreferenced local variable
-C:\Users\Jason\Documents\GitHub\cse-5700\lab5\lab5\lab5.cpp(157,9): warning C4101: 'nextPos': unreferenced local variable
-C:\Users\Jason\Documents\GitHub\cse-5700\lab5\lab5\lab5.cpp(213,23): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Jason\Documents\GitHub\cse-5700\lab5\lab5\lab5.cpp(186,74): warning C4267: '=': conversion from 'size_t' to 'char', possible loss of data
+C:\Users\Jason\Documents\GitHub\cse-5700\lab5\lab5\lab5.cpp(162,25): warning C4101: 'prod': unreferenced local variable
+C:\Users\Jason\Documents\GitHub\cse-5700\lab5\lab5\lab5.cpp(158,9): warning C4101: 'nextPos': unreferenced local variable
+C:\Users\Jason\Documents\GitHub\cse-5700\lab5\lab5\lab5.cpp(214,23): warning C4018: '<': signed/unsigned mismatch
   lab5.vcxproj -> C:\Users\Jason\Documents\GitHub\cse-5700\lab5\Debug\lab5.exe
