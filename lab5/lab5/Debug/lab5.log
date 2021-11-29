@@ -1,4 +1,2 @@
 ﻿  lab5.cpp
-C:\Users\Jason\Documents\GitHub\cse-5700\lab5\lab5\lab5.cpp(185,74): warning C4267: '=': conversion from 'size_t' to 'char', possible loss of data
-C:\Users\Jason\Documents\GitHub\cse-5700\lab5\lab5\lab5.cpp(213,23): warning C4018: '<': signed/unsigned mismatch
   lab5.vcxproj -> C:\Users\Jason\Documents\GitHub\cse-5700\lab5\Debug\lab5.exe
