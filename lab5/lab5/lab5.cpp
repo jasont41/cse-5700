@@ -45,7 +45,6 @@ vector<char> nonTerminal;
 map<char, string> production;
 map<char, set<char> > firstMap;
 map<char, set<char> > followMap;
-vector<string> kernel;
 typedef map<char, vector<string> > extendedGrammar;
 typedef map<string, int> gotoMap;
 bool isTerminal(char);
@@ -72,7 +71,8 @@ int main()
     input.open(file.c_str(), ios::in);
     if (!input)
     {
-        cout << "error opening grammar.txt" << endl;
+        cout << "File not found" << endl;
+        return 9; 
     }
 
     cout << "Extended Grammer " << endl; 
@@ -117,7 +117,8 @@ int main()
         {
             production[value] += "|" + line.substr(3, line.length());
             AugGrammar[value].push_back(rhs);
-            printf("%c->%s\n", value, rhs.c_str());
+            //printf("%c->%s\n", value, rhs.c_str());
+            cout << value << rhs << endl; 
             if (isTerminal(rhs[0]) == false)
             {
                 singleRPs[0].push(new extendedProduction(value, "." + rhs));
@@ -145,8 +146,8 @@ bool isTerminal(char input)
 
 void getSingleRPs(vector<singleRP>& singleRPs, extendedGrammar& grammar, int& itemid, gotoMap& GlobalGoTo)
 {
-    printf("I%d:\n", itemid);
-
+    // printf("I%d:\n", itemid);
+    cout << itemid << endl; 
     for (int i = 0; i < singleRPs[itemid].Size(); i++)
     {
         string rhs = singleRPs[itemid][i]->rhs;
@@ -154,11 +155,9 @@ void getSingleRPs(vector<singleRP>& singleRPs, extendedGrammar& grammar, int& it
         add_closure(lookahead, singleRPs[itemid], grammar);
     }
 
-    int nextPos;
     char lookahead;
     char lhs;
     string rhs;
-    extendedProduction* prod;
 
     for (int i = 0; i < singleRPs[itemid].Size(); i++)
     {
@@ -169,7 +168,8 @@ void getSingleRPs(vector<singleRP>& singleRPs, extendedGrammar& grammar, int& it
         lookahead = rhs[rhs.find('.') + 1];
         if (lookahead == '\0')
         {
-            printf("\t%-20s\n", &production[0]);
+            //printf("\t%-20s\n", &production[0]);
+            cout << &production[0]; 
             continue;
         }
 
@@ -189,17 +189,17 @@ void getSingleRPs(vector<singleRP>& singleRPs, extendedGrammar& grammar, int& it
             {
                 singleRPs[itemid].gotos[lookahead] = GlobalGoTo[production];
             }
-            printf("\t%-20s goto(I%d,%c)\n", &production[0], GlobalGoTo[production], lookahead);
+            cout << &production[0] << "  " << GlobalGoTo[production] << " " << lookahead << endl; 
         }
         else
         {
-            int at = rhs.find('.');
-            swap(rhs[at], rhs[at + 1]);
+            int index = rhs.find('.');
+            swap(rhs[index], rhs[index + 1]);
             int nextItem = singleRPs[itemid].gotos[lookahead];
             if (!singleRPs[nextItem].Contains(string(&lhs, 1) + "->" + rhs))
                 singleRPs[nextItem].push(new extendedProduction(lhs, rhs));
-            swap(rhs[at], rhs[at + 1]);
-            printf("\t%-20s\n", &production[0]);
+            swap(rhs[index], rhs[index + 1]);
+            cout << &production[0] << endl; 
         }
     }
 }
