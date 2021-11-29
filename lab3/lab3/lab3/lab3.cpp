@@ -58,6 +58,10 @@ int main()
     in.close();
 }
 
+/************************************************************
+ * Description: Prints grammer
+ * Returns: Nothing 
+ * *********************************************************/
 void printAllGrammar()
 {
     for (int i = 0; i < nonTerminal.size(); i++)
@@ -90,7 +94,10 @@ void printAllGrammar()
         cout << "}" << endl;
     }
 }
-
+/************************************************************
+ * Description: Checks if char is a terminal or not 
+ * Returns: Bool
+ * *********************************************************/
 bool isTerminal(char in)
 {
     if (in == 'e')
@@ -100,7 +107,10 @@ bool isTerminal(char in)
     else
         return false;
 }
-
+/************************************************************
+ * Description: Checks if first set or not
+ * Returns: Nothing 
+ * *********************************************************/
 void first()
 {
     char left_hand;
@@ -167,7 +177,10 @@ void first()
             done = true;
     }
 }
-
+/************************************************************
+ * Description: checks if follow set or not 
+ * Returns: Nothing
+ * *********************************************************/
 void follow() 
 {
     char left_hand;
@@ -290,7 +303,10 @@ void follow()
     }
     followMap[nonTerminal[0]].insert('$');
 }
-
+/************************************************************
+ * Description: Prints Grammar
+ * Returns: Nothing 
+ * *********************************************************/
 void printGrammar()
 {
     cout << "Grammar" << endl;
