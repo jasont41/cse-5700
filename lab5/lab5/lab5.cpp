@@ -16,7 +16,6 @@ class extendedProduction
 public: 
     char lhs; 
     string rhs; 
-    //extendedProduction() {}
     extendedProduction(char _lhs, string _rhs) : lhs(_lhs), rhs(_rhs) {}
 };
 
@@ -39,15 +38,13 @@ public:
     }
     extendedProduction* operator[](const int index){return productions[index];    }
 };
-string file = "grammer.txt";
-vector<char> terminal;
-vector<char> nonTerminal;
-map<char, string> production;
-map<char, set<char> > firstMap;
-map<char, set<char> > followMap;
+
+
+
+
 typedef map<char, vector<string> > extendedGrammar;
 typedef map<string, int> gotoMap;
-bool isTerminal(char);
+bool isTerminal(char,vector<char>);
 void getSingleRPs(vector<singleRP>&, extendedGrammar&, int&, gotoMap&); 
 void add_closure(char lookahead, singleRP& item, extendedGrammar& grammar);
 
@@ -58,6 +55,12 @@ void add_closure(char lookahead, singleRP& item, extendedGrammar& grammar);
 
 int main()
 {
+    string file = "g417.txt";
+    vector<char> terminal;
+    vector<char> nonTerminal;
+    map<char, string> production;
+    map<char, set<char> > firstMap;
+    map<char, set<char> > followMap;
     int itemid = -1;
     extendedGrammar AugGrammar;
     vector<singleRP> singleRPs = { singleRP() };
@@ -75,7 +78,7 @@ int main()
         return 9;
     }
 
-    cout << "Extended Grammer " << endl; 
+    cout << "Grammer " << file.substr(0,file.length() - 4 ) << endl; 
 
     getline(input, line); 
     while (!input.eof())
@@ -108,7 +111,7 @@ int main()
             }
             AugGrammar[value].push_back(rhs); 
             cout << value << rhs << endl; 
-            if (!isTerminal(rhs[0]))
+            if (!isTerminal(rhs[0],terminal))
             {
                 singleRPs[0].push(new extendedProduction(value, "." + rhs)); 
             }
@@ -118,7 +121,7 @@ int main()
             production[value] += "|" + line.substr(3, line.length());
             AugGrammar[value].push_back(rhs);
             printf("%c->%s\n", value, rhs.c_str());
-            if (isTerminal(rhs[0]) == false)
+            if (isTerminal(rhs[0],terminal) == false)
             {
                 singleRPs[0].push(new extendedProduction(value, "." + rhs));
             }
@@ -133,7 +136,7 @@ int main()
 
 }
 
-bool isTerminal(char input)
+bool isTerminal(char input, vector<char> terminal)
 {
     if (input == 'e')
         return true;
