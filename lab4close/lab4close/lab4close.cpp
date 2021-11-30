@@ -1,3 +1,4 @@
+
 #include <iostream>
 #include <string>
 #include <fstream>
@@ -69,6 +70,7 @@ int main()
     first();
     follow();
     printAllGrammar();
+    return 0; 
 }
 
 //Prints the grammar.
