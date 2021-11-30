@@ -1,3 +1,4 @@
+
 #include <iostream>
 #include <string>
 #include <sstream>
@@ -39,14 +40,13 @@ int main() {
 		for (int j = 0; j < 2; ++j) {
 			std::cout << table[i][j] << " "; 
 		}
+		std::cout << std::endl; 
 	}
-	std::string input; 
-	std::cin >> input; 
-
 	//final state table 
 	const bool final[4] = { 0,0,0,1 }; 
 	std::cout << "Enter string: " << std::endl; 
-
+	std::string input; 
+	std::cin >> input; 
 	if (DFA(input, table, final))
 	{
 		std::cout << "valid"; 

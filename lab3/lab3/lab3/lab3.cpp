@@ -49,13 +49,21 @@ int main()
                 nonTerminal.push_back(value);
 
             if (production[value] == "")
+            {
                 production[value] = line.substr(3, line.length());
+            }
             else
+            {
                 production[value] += "|" + line.substr(3, line.length());
+            }
         }
         getline(in, line); 
     }
     in.close();
+    printGrammar(); 
+    first(); 
+    follow(); 
+    printAllGrammar(); 
 }
 
 /************************************************************
@@ -101,11 +109,17 @@ void printAllGrammar()
 bool isTerminal(char in)
 {
     if (in == 'e')
+    {
         return true;
+    }
     if (find(terminal.begin(), terminal.end(), in) != terminal.end())
+    {
         return true;
+    }
     else
+    {
         return false;
+    }
 }
 /************************************************************
  * Description: Checks if first set or not

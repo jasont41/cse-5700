@@ -1,0 +1,10 @@
+﻿  lab4close.cpp
+C:\Users\Jason\Documents\GitHub\cse-5700\lab4close\lab4close\lab4close.cpp(79,23): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Jason\Documents\GitHub\cse-5700\lab4close\lab4close\lab4close.cpp(85,23): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Jason\Documents\GitHub\cse-5700\lab4close\lab4close\lab4close.cpp(98,23): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Jason\Documents\GitHub\cse-5700\lab4close\lab4close\lab4close.cpp(117,23): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Jason\Documents\GitHub\cse-5700\lab4close\lab4close\lab4close.cpp(164,18): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Jason\Documents\GitHub\cse-5700\lab4close\lab4close\lab4close.cpp(175,41): warning C4018: '<=': signed/unsigned mismatch
+C:\Users\Jason\Documents\GitHub\cse-5700\lab4close\lab4close\lab4close.cpp(177,23): warning C4018: '>=': signed/unsigned mismatch
+C:\Users\Jason\Documents\GitHub\cse-5700\lab4close\lab4close\lab4close.cpp(232,18): warning C4018: '<': signed/unsigned mismatch
+  lab4close.vcxproj -> C:\Users\Jason\Documents\GitHub\cse-5700\lab4close\Debug\lab4close.exe
