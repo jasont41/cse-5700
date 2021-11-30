@@ -6,7 +6,10 @@
 
 using namespace std;
 
-
+/************************************************************
+ * Description: Prints incoming set using iterators 
+ * Returns    : Nothing
+ * *********************************************************/
 void print_set(set<char>a[]) {
     for (int i = 0; i < 128; ++i)
     {
@@ -22,16 +25,45 @@ void print_set(set<char>a[]) {
         }
     }
 }
+/************************************************************
+ * Description: Prints incoming vector, to clean up main()
+ * Returns    : Nothing
+ * *********************************************************/
 void print_vect(vector<char> a) {
-    for (int i = 0; i < a.size(); i++)
+    for (int i = 0; i < int(a.size()); i++)
     {
         cout << a[i] << endl;
     }
 }
+/************************************************************
+ * Description: Prints incoming vector, overloaded definition
+ * Returns    : Nothing
+ * *********************************************************/
 void print_vect(vector<string> a) {
-    for (int i = 0; i < a.size(); i++)
+    for (int i = 0; i < int(a.size()); i++)
     {
         cout << a[i] << endl;
+    }
+}
+/************************************************************
+ * Description: checks for epsilon in first set, clean up main()
+ * Returns    : Nothing
+ * *********************************************************/
+void has_epsilon(bool hEP[], set<char> firsts [])
+{
+    for (int i = 0; i < 128; ++i)
+    {
+        if (!firsts[i].empty())
+        {
+            for (set<char>::iterator it = firsts[i].begin(); it != firsts[i].end();
+                ++it)
+            {
+                if (*it == 'e')
+                {
+                    hEP[i] = true;
+                }
+            }
+        }
     }
 }
 int main()
@@ -51,6 +83,8 @@ int main()
 
     input >> check_char;
 
+
+    //  Check for terminals 
     while (check_char != '$')
     {
         terminals.push_back(check_char);
@@ -59,6 +93,7 @@ int main()
 
     input >> check_string;
 
+    //  Check for nonterminals and productions 
     while (check_string != "$")
     {
         check_char = check_string[0];
@@ -67,7 +102,7 @@ int main()
         productions.push_back(check_string);
         input >> check_string;
     }
-
+    //  print all three vectors 
     cout << "Terminals: " << endl;
     print_vect(terminals);
 
@@ -77,44 +112,48 @@ int main()
     cout << "Productions: " << endl;
     print_vect(productions);
 
-    for (int i = 0; i < terminals.size(); ++i)
+    for (int i = 0; i < int(terminals.size()); ++i) //  int case to clear signed/unsigned mismatch error 
     {
+        //  Inserting terminals into first set Set 
         firsts[terminals[i]].insert(terminals[i]);
     }
 
-    bool change, isTerminal, dEpsilon;
-    int olds, news, checkIndex;
+    bool change = true, isTerminal, dEpsilon;
+    int olds, news; // old and new sizes 
     do
     {
         change = true;
-        for (int i = 0; i < productions.size(); ++i)
+        for (int i = 0; i < int(productions.size()); ++i)
         {
             string toCheck = productions[i];
             char expression = toCheck[0];
 
-            for (int j = 3; j < toCheck.size(); ++j)
+            for (int j = 3; j < int(toCheck.size()); ++j)
             {
                 dEpsilon = false;
                 isTerminal = false;
-                for (int i = 0; i < terminals.size(); ++i)
+                for (int i = 0; i < int(terminals.size()); ++i)
                 {
+                    // check if check string is an existing terminal 
                     if (terminals[i] == toCheck[j])
                     {
                         isTerminal = true;
                     }
                 }
+                // check if e is in the third position 
                 if (toCheck[j] == 'e' && j == 3)
                 {
                     firsts[expression].insert('e');
                     change = true;
-                    break;
+                    break; //   drop out of loop 
                 }
+                //see if that position of set is empty 
                 if (!firsts[toCheck[j]].empty())
                 {
                     olds = firsts[expression].size();
-                    for (set<char>::iterator it = firsts[toCheck[j]].begin();
-                        it != firsts[toCheck[j]].end(); it++)
-                    {
+                    for (set<char>::iterator it = firsts[toCheck[j]].begin(); it != firsts[toCheck[j]].end(); it++)
+                    {   
+                        //  if dereferenced iterator isn't e, insert into first set 
                         if (*it != 'e')
                         {
                             firsts[expression].insert(*it);
@@ -138,40 +177,31 @@ int main()
         }
     } while (change);
     print_set(firsts);
-    cout << endl;
-    cout << endl;
-    bool hasEpsilon[128];
-    for (int i = 0; i < 128; ++i)
-    {
-        if (!firsts[i].empty())
-        {
-            for (set<char>::iterator it = firsts[i].begin(); it != firsts[i].end();
-                ++it)
-            {
-                if (*it == 'e')
-                {
-                    hasEpsilon[i] = true;
-                }
-            }
-        }
-    }
-
+    
+    // array to store if each set item has an epilson 
+    bool hasEpsilon[128] = {};
+    //  moved to clean up main 
+    has_epsilon(hasEpsilon, firsts); 
+   
+    // check productions to see if they are follow sets 
     string followCheck = productions[0];
     char fChar = followCheck[0];
     follows[fChar].insert('$');
     do
     {
         change = true;
-        for (int i = 0; i < productions.size(); ++i)
+        for (int i = 0; i < int(productions.size()); ++i)
         {
             followCheck = productions[i];
             fChar = followCheck[0];
+            //  see if epsilon is in the 6th spot and the string is 7 chars long 
             if (followCheck.size() == 6 && followCheck[5] != 'e')
             {
                 olds = follows[followCheck[4]].size();
                 for (set<char>::iterator it = firsts[followCheck[5]].begin();
                     it != firsts[followCheck[5]].end(); ++it)
                 {
+                    // same as first sets 
                     if (*it != 'e')
                     {
                         follows[followCheck[4]].insert(*it);
@@ -183,6 +213,7 @@ int main()
                     change = false;
                 }
             }
+            //must have epsilon to be a follow 
             if (followCheck.size() == 6 && hasEpsilon[followCheck[5]])
             {
                 olds = follows[followCheck[4]].size();

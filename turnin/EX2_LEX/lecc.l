@@ -35,7 +35,10 @@ int yywrap()
 {
 return 1;
 }
+/*
+Notes: Written and tested on Ubuntu 20.04 VM running on local server, using flex 2.6.4 and GCC 9.3.0
 
+*/
 
 /*Auxiliary function*/
 /*Driver function*/

@@ -1,10 +1,2 @@
 ﻿  lab4_real.cpp
-C:\Users\Jason\Documents\GitHub\cse-5700\lab4_real\lab4_real\lab4_real.cpp(26,23): warning C4018: '<': signed/unsigned mismatch
-C:\Users\Jason\Documents\GitHub\cse-5700\lab4_real\lab4_real\lab4_real.cpp(32,23): warning C4018: '<': signed/unsigned mismatch
-C:\Users\Jason\Documents\GitHub\cse-5700\lab4_real\lab4_real\lab4_real.cpp(80,23): warning C4018: '<': signed/unsigned mismatch
-C:\Users\Jason\Documents\GitHub\cse-5700\lab4_real\lab4_real\lab4_real.cpp(90,27): warning C4018: '<': signed/unsigned mismatch
-C:\Users\Jason\Documents\GitHub\cse-5700\lab4_real\lab4_real\lab4_real.cpp(95,31): warning C4018: '<': signed/unsigned mismatch
-C:\Users\Jason\Documents\GitHub\cse-5700\lab4_real\lab4_real\lab4_real.cpp(99,35): warning C4018: '<': signed/unsigned mismatch
-C:\Users\Jason\Documents\GitHub\cse-5700\lab4_real\lab4_real\lab4_real.cpp(165,27): warning C4018: '<': signed/unsigned mismatch
-C:\Users\Jason\Documents\GitHub\cse-5700\lab4_real\lab4_real\lab4_real.cpp(86,21): warning C4101: 'checkIndex': unreferenced local variable
   lab4_real.vcxproj -> C:\Users\Jason\Documents\GitHub\cse-5700\lab4_real\Debug\lab4_real.exe
