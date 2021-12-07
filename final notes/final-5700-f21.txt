@@ -1,0 +1,88 @@
+CSCI 5700/6700 Final Examination - Fall 2021
+
+Write your answers to each problem, send me the results by email to ernesto@csusb.edu
+on or before the end of finals week, Dec.10 2021.
+
+Format should be a single (word compatible) .doc or .pdf file with images embedded as
+needed when representing graphs.
+
+1) Determine the basic blocks in the following code fragment, and give
+the control flow graph. 
+
+	i=m-1
+	j=n
+	t1=4*n
+	v=a[t1]
+L5:	i=i+1
+	t3=a[t2]
+	if t3<v goto L5
+L9:	j=j-1
+	t4=4*j
+	t5=a[t4]
+	if t5>v goto L9
+	if i>=j goto L23
+	t6=4*i
+	x=a[t6]
+	t7=4*i
+	t8=4*j
+	a[t7]=t9
+	t10=4*j
+	a[t10]=x
+	goto L5
+L23:	t11=4*i
+	x=a[t11]
+	t12=4*i
+	t13=4*n
+	a[t12]=t14
+	t15=4*n
+	a[t15]=x
+
+
+
+ 
+2) Consider the following grammar (describing numeric type declarations D for integer and real):
+
+ D -> TL
+ T -> i | r
+ L -> L,i | i
+
+Find FIRST, FOLLOW and LR(0) sets for this grammar.
+Is the grammar LR(0)? Is it SLR?
+
+
+3) The following grammar applies + and * operators to integer and real 
+constants. The result of adding two integers is type integer, otherwise the 
+result is type real. A number (T) with a decimal point is real, otherwise is 
+integer.
+
+E-> E+T | T
+T-> T*F | F
+F-> num.num | num | (E)
+
+Write a syntax directed definition for this grammar to determine the type of 
+each subexpression; if an operation involves mixed integer and real values,
+convert integer values to real. Note that num.num is real, num is integer
+Write semantic actions to output 3-addres code. 
+
+Assume the following operators:
+
+INT2RL dest src 	// integer to real
+ADDI dest src1 src2	// integer sum
+ADDR dest src1 src2	// real sum
+MULI dest src1 src2	// integer multiply
+MULR dest src1 src2	// real multiply
+
+(If you believe you need any additional 3-address operators, you may
+add them to the above list).
+
+Use register labels r0 to r32 for src and dest in the definitions, assume the
+actual values will be assigned by a runtime system that you don't need to
+specify here
+
+(extra credit)
+
+given the adjacency graph for a CFG, describe an algorithm that uses the CFG to
+derive the DOM tree (note that the algorithm in the book is based on data-flow
+analysis rather the structure of the CFG)
+
+

@@ -170,7 +170,7 @@ int main()
             {
                 if(*it == 'e')
                 {
-                    hEpsilon[i] == true; 
+                    hEpsilon[i] = true; 
                 }
             }
         }
