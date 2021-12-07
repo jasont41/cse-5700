@@ -73,7 +73,7 @@ int main()
     vector<char> terminals;
     vector<char> nonterminals;
     vector<string> productions;
-    string filename = "g417.txt"; 
+    string filename = "final_grammar.txt"; 
     set<char> firsts[128];
     set<char> follows[128];
 
@@ -176,6 +176,7 @@ int main()
             }
         }
     } while (change);
+    cout << "First sets " << endl; 
     print_set(firsts);
     
     // array to store if each set item has an epilson 
@@ -244,5 +245,7 @@ int main()
             }
         }
     } while (change);
+
+    cout << "Follow sets " << endl; 
     print_set(follows);
 }

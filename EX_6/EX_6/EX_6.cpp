@@ -55,7 +55,7 @@ void add_closure(char lookahead, singleRP& item, extendedGrammar& grammar);
 
 int main()
 {
-    string file = "grammar3.txt";
+    string file = "final_grammar.txt";
     vector<char> terminal;
     vector<char> nonTerminal;
     map<char, string> production;
