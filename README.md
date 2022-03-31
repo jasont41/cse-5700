@@ -10,3 +10,4 @@ https://stackoverflow.com/questions/8859710/lex-how-to-run-compile-a-lex-program
 
 
 https://stackoverflow.com/questions/3747603/lex-print-line-numbers
+csusb gomez
